@@ -31,8 +31,6 @@ function createOptions(post) {
 async function getComments() {
     const postId = document.getElementById('posts').value;
     if (postId) {
-
-
         const urlPosts = 'http://localhost:3030/jsonstore/blog/posts/' + postId;
         const urlComments = 'http://localhost:3030/jsonstore/blog/comments';
 
