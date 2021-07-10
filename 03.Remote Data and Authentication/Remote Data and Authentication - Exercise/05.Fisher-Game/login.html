@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biggest Catch</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="/static/login.css">
+    <link rel="stylesheet" href="./static/styles.css">
+    <link rel="stylesheet" href="./static/login.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Register</h2>
-                                <form action="/register" method="post">
+                                <form id="register-form" action="/register" method="post">
                                     <label>E-mail: <input type="text" name="email"></label>
                                     <label>Password: <input type="password" name="password"></label>
                                     <label>Repeat: <input type="password" name="rePass"></label>
@@ -36,7 +36,7 @@
                                 </form>
                                 <hr>
                                 <h2>Login</h2>
-                                <form action="/login" method="post">
+                                <form id="login-form" action="/login" method="post">
                                     <label>E-mail: <input type="text" name="email"></label>
                                     <label>Password: <input type="password" name="password"></label>
                                     <button>Login</button>
@@ -52,5 +52,5 @@
         </div>
     </main>
 </body>
-
+<script src="login.js"></script>
 </html>
