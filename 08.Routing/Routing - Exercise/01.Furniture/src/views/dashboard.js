@@ -1,4 +1,4 @@
-import { html } from '../../node_modules/lit-html/lit-html.js';
+import { html } from '../node_modules/lit-html/lit-html.js';
 import { getFurniture } from '../api/data.js';
 
 const dashboardTemplate = (data) => html `
@@ -31,4 +31,5 @@ export async function dashboardPage(context) {
     const data = await getFurniture();
     console.log('dashboard Page')
     context.render(dashboardTemplate(data));
+    context.setUserNav();
 }
