@@ -31,5 +31,5 @@ export async function deleteCar(id) {
 
 export async function getMyCars() {
     const userId = sessionStorage.getItem('userId');
-    return await api.get(host + `/data/cars?where=_ownerId%3D%22{userId}%22&sortBy=_createdOn%20desc`);
+    return await api.get(host + `/data/cars?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`);
 }

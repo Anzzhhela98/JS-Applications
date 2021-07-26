@@ -10,7 +10,7 @@ import { catalogPage } from "../src/views/catalog.js";
 import { detailsPage } from "../src/views/details.js";
 import { editPage } from "../src/views/edit.js";
 import { createPage } from "../src/views/create.js";
-// import { myProfilePage } from "../src/views/myProfile.js";
+import { myCarsPage } from "../src/views/myListings.js";
 
 window.api = api;
 const container = document.getElementById('site-content');
@@ -23,11 +23,11 @@ page('/catalog', renderMiddleware, catalogPage);
 page('/details/:id', renderMiddleware, detailsPage);
 page('/edit/:id', renderMiddleware, editPage);
 page('/create', renderMiddleware, createPage);
+page('/my-listings', renderMiddleware, myCarsPage);
 
 setUserNav();
 page.start();
 // page('/allMemes', renderMiddleware, memesPage);
-// page('/myProfile', renderMiddleware, myProfilePage);
 
 function renderMiddleware(context, next) {
     context.setUserNav = setUserNav;

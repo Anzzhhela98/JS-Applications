@@ -28,5 +28,7 @@ const carTemplate = ({ imageUrl, brand, model, year, price, _id }) => html `
 
 export async function catalogPage(context) {
     const cars = await getAllCars();
+    console.log(cars)
     context.render(template(cars));
+    context.setUserNav();
 }
