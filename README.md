@@ -14,12 +14,12 @@ With "JavaScript Applications" students will learn what HTTP requests are and ho
 
 <h4 align="center">Skills that you will acquire</h4>
 
-What is HTTP and how to make requests.
-Working with non-relational databases.
-Create simple Single Page applications.
-Working with REST API and asynchronous programming.
-Working with templates and routing.
-Application testing.
+1. _What is HTTP and how to make requests._
+2. _Working with non-relational databases._
+3. _Create simple Single Page applications._
+4. _Working with REST API and asynchronous programming._
+5. _Working with templates and routing._
+6. _Аpplication testing._
 
 <h4 align="center">Course Specifics</h4>
 
