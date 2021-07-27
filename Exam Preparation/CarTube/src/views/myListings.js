@@ -5,7 +5,7 @@ const myCarsTemplate = (cars) => html `
 <section id="my-listings">
     <h1>My car listings</h1>
     <div class="listings">
-        <div class="listings">${cars.length ? cars.map(carTemplate) : html`<p class="no-cars">No cars in database.</p>`}
+        <div class="listings">${cars.length ? cars.map(carTemplate) : html`<p class="no-cars">You haven't listed any cars yet.'</p>`}
         </div>
 </section>`;
 

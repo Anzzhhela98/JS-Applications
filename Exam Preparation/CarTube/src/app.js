@@ -11,10 +11,10 @@ import { detailsPage } from "../src/views/details.js";
 import { editPage } from "../src/views/edit.js";
 import { createPage } from "../src/views/create.js";
 import { myCarsPage } from "../src/views/myListings.js";
+import { searchPage } from "../src/views/search.js";
 
 window.api = api;
 const container = document.getElementById('site-content');
-
 
 page('/', renderMiddleware, homePage);
 page('/login', renderMiddleware, loginPage);
@@ -24,10 +24,10 @@ page('/details/:id', renderMiddleware, detailsPage);
 page('/edit/:id', renderMiddleware, editPage);
 page('/create', renderMiddleware, createPage);
 page('/my-listings', renderMiddleware, myCarsPage);
+page('/search', renderMiddleware, searchPage);
 
 setUserNav();
 page.start();
-// page('/allMemes', renderMiddleware, memesPage);
 
 function renderMiddleware(context, next) {
     context.setUserNav = setUserNav;
