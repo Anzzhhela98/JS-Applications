@@ -1,12 +1,3 @@
-<h1>Skills that you will acquire</h1>
-
-What is HTTP and how to make requests.
-Working with non-relational databases.
-Create simple Single Page applications.
-Working with REST API and asynchronous programming.
-Working with templates and routing.
-Application testing.
-
 <h1 align="center">JavaScript Applications</h1>
 <h6 align="center">Some Labs and Almost every Excercise Homework for the Softuni JavaScript Applications course. June 2021</h6>
 
