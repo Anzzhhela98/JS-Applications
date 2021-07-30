@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SoftTerest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/src/app.js" type="module"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="./images/idea.png" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/catalog">Dashboard</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a id="user-create" class="nav-link" href="/create">Create</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="user-logoutBtn" class="nav-link" href="javascript:void(0)">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="guest-login" class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li id="guest" class="nav-item">
+                        <a id="guest-register" class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="container">
+
+    </main>
+
+    <footer class="footer">
+        <div class="container-footer">
+            <span>© We cherish your ideas! Share them with others!</span>
+        </div>
+    </footer>
+</body>
+
+</html>
