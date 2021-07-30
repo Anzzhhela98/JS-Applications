@@ -24,10 +24,6 @@ async function getWeather() {
     const cityName = location.value;
     location.value = '';
 
-    // if (!Object.keys(cityCodes).includes(cityName)) {
-    //     console.log(currentDiv)
-    //     return (currentDiv.value = 'Error - Wrong city name!');
-    // }
     //make sure you are displaing just one weather forecast
     while (currentDiv.children.length >= 1 && upcommingDiv.children.length >= 1) {
         currentDiv.removeChild(currentDiv.lastChild);
@@ -45,25 +41,25 @@ async function getWeather() {
     document.getElementById('forecast').style.display = 'block';
 
     //1 => forecast 
-    const divForecasts = createElemente('div', undefined, 'forecasts');
+    const divForecasts = createElement('div', undefined, 'forecasts');
     const conditionSymbol = current.forecast.condition;
-    const spanConditonSymbol = createElemente('span', undefined, 'condition symbol');
+    const spanConditonSymbol = createElement('span', undefined, 'condition symbol');
     spanConditonSymbol.innerHTML = symbols[conditionSymbol];
 
     divForecasts.appendChild(spanConditonSymbol);
     currentDiv.appendChild(divForecasts);
 
-    const span = createElemente('span', undefined, 'condition');
-    const spanCity = createElemente('span', `${current.name}`, 'forecast-data');
-    const spanHighLow = createElemente('span', undefined, 'forecast-data');
+    const span = createElement('span', undefined, 'condition');
+    const spanCity = createElement('span', `${current.name}`, 'forecast-data');
+    const spanHighLow = createElement('span', undefined, 'forecast-data');
     spanHighLow.innerHTML = `${current.forecast.low}${symbols.Degree}/${current.forecast.high}${symbols.Degree}`;
-    const spanCondition = createElemente('span', `${current.forecast.condition}`, 'forecast-data');
+    const spanCondition = createElement('span', `${current.forecast.condition}`, 'forecast-data');
 
     [spanCity, spanHighLow, spanCondition].map((el) => span.appendChild(el));
     divForecasts.appendChild(span);
 
     //1 => upcomingDiv
-    const divForecastInfo = createElemente('div', undefined, 'forecast-info');
+    const divForecastInfo = createElement('div', undefined, 'forecast-info');
     upcommingDiv.appendChild(divForecastInfo);
 
     for (let index = 0; index < upcoming.forecast.length; index++) {
@@ -108,7 +104,7 @@ async function getUpcomming(code) {
     }
 }
 
-function createElemente(type, text, attributes) {
+function createElement(type, text, attributes) {
     const result = document.createElement(type);
     if (text) {
         result.textContent = text;
@@ -125,11 +121,11 @@ function createSpan(upcoming, index, symbols) {
     const low = upcoming.forecast[index].low;
     const high = upcoming.forecast[index].high;
 
-    const spanSymbol = createElemente('span', undefined, 'symbol');
+    const spanSymbol = createElement('span', undefined, 'symbol');
     spanSymbol.innerHTML = symbols[symbol]
-    const highLow = createElemente('span', undefined, 'forecast-data');
+    const highLow = createElement('span', undefined, 'forecast-data');
     highLow.innerHTML = `${low}${symbols.Degree}/${high}${symbols.Degree}`
-    const condition = createElemente('span', symbol, 'forecast-data');
+    const condition = createElement('span', symbol, 'forecast-data');
 
     return [spanSymbol, highLow, condition]
 }

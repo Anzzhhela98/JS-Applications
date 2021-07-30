@@ -18,7 +18,7 @@ async function getInfo() {
     } catch (error) {
         ul.innerHTML = ''
         document.querySelector('#stopName').textContent = `Error`;
-        // alert(error.message)
+        alert(error.message)
     }
 }
 
