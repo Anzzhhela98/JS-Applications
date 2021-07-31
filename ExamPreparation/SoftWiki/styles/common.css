@@ -46,7 +46,7 @@ header nav {
     bottom: 8px;
 }
 
-header nav > * {
+header nav>* {
     float: left;
 }
 
