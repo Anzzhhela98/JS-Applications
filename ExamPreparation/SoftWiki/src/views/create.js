@@ -28,9 +28,9 @@ const template = (onSubmit) => html `
 export function createPage(context) {
     context.render(template(onSubmit));
 
-    async function onSubmit(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    async function onSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
         const title = formData.get('title').trim();
         const category = formData.get('category').trim();
         const content = formData.get('content').trim();
@@ -40,6 +40,7 @@ export function createPage(context) {
         }
 
         await createArticle({ title, category, content });
+        console.log('yes')
         context.page.redirect('/');
     }
 }

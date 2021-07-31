@@ -35,7 +35,7 @@ function renderMiddleware(context, next) {
 };
 
 export function setUserNav() {
-    const token = sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem('accessToken');
     if (token) {
         document.getElementById('user').style.display = 'block';
         document.getElementById('guest').style.display = 'none';

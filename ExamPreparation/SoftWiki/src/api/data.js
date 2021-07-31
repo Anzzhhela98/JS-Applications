@@ -18,8 +18,8 @@ export async function getArticleById(id) {
     return await api.get(host + '/data/wiki/' + id);
 }
 
-export async function createArticle(article) {
-    return await api.post(host + '/data/wiki/', article);
+export async function createArticle(body) {
+    return await api.post(host + '/data/wiki', body);
 }
 
 export async function deleteArticleById(id) {

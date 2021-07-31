@@ -23,24 +23,25 @@ let browser;
 let context;
 let page;
 
-describe('E2E tests', function () {
+describe('E2E tests', function() {
     // Setup
     this.timeout(DEBUG ? 120000 : timeout);
-    before(async () => (browser = await chromium.launch(DEBUG ? { headless: false, slowMo } : {})));
-    after(async () => await browser.close());
-    beforeEach(async () => {
+    before(async() => (browser = await chromium.launch(DEBUG ? { headless: false, slowMo } : {})));
+    after(async() => await browser.close());
+
+    beforeEach(async() => {
         context = await browser.newContext();
         setupContext(context);
         page = await context.newPage();
     });
-    afterEach(async () => {
+    afterEach(async() => {
         await page.close();
         await context.close();
     });
 
     // Test proper
     describe('Authentication [ 20 Points ]', () => {
-        it('register does not work with empty fields [ 5 Points ]', async () => {
+        it('register does not work with empty fields [ 5 Points ]', async() => {
             const { post } = await createHandler(endpoints.register, { post: {} });
 
             await page.goto(host);
@@ -56,7 +57,7 @@ describe('E2E tests', function () {
             expect(post.isCalled).to.be.false;
         });
 
-        it('register makes correct API call [ 5 Points ]', async () => {
+        it('register makes correct API call [ 5 Points ]', async() => {
             const data = mockData.users[0];
             const { post } = await createHandler(endpoints.register, { post: data });
 
@@ -79,7 +80,7 @@ describe('E2E tests', function () {
             expect(postData.password).to.equal(data.password);
         });
 
-        it('login makes correct API call [ 5 Points ]', async () => {
+        it('login makes correct API call [ 5 Points ]', async() => {
             const data = mockData.users[0];
             const { post } = await createHandler(endpoints.login, { post: data });
 
@@ -100,7 +101,7 @@ describe('E2E tests', function () {
             expect(postData.password).to.equal(data.password);
         });
 
-        it('logout makes correct API call [ 5 Points ]', async () => {
+        it('logout makes correct API call [ 5 Points ]', async() => {
             const data = mockData.users[0];
             const { post: loginPost } = await createHandler(endpoints.login, { post: data });
             const { get: logoutGet } = await createHandler(endpoints.logout, { get: { data: '', options: { json: false, status: 204 } } });
@@ -127,7 +128,7 @@ describe('E2E tests', function () {
     });
 
     describe('Navigation bar [ 5 Points ]', () => {
-        it('guest user should see correct navigation [ 2.5 Points ]', async () => {
+        it('guest user should see correct navigation [ 2.5 Points ]', async() => {
             await page.goto(host);
             await page.waitForTimeout(interval);
 
@@ -140,7 +141,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('nav >> text=Logout')).to.be.false;
         });
 
-        it('logged user should see correct navigation [ 2.5 Points ]', async () => {
+        it('logged user should see correct navigation [ 2.5 Points ]', async() => {
             // Login user
             const data = mockData.users[0];
             await page.goto(host);
@@ -168,7 +169,7 @@ describe('E2E tests', function () {
     });
 
     describe('Catalog [ 20 Points ]', () => {
-        it('show empty catalog [ 2.5 Points ]', async () => {
+        it('show empty catalog [ 2.5 Points ]', async() => {
             await createHandler(endpoints.catalog, { get: [] });
             await page.goto(host);
             await page.waitForTimeout(interval);
@@ -181,7 +182,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text=No articles yet')).to.be.true;
         });
 
-        it('show catalog [ 7.5 Points ]', async () => {
+        it('show catalog [ 7.5 Points ]', async() => {
             await page.goto(host);
             await page.waitForTimeout(interval);
 
@@ -199,7 +200,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text=No articles yet')).to.be.false;
         });
 
-        it('show details [ 5 Points ]', async () => {
+        it('show details [ 5 Points ]', async() => {
             const data = mockData.catalog[0];
 
             await page.goto(host);
@@ -217,7 +218,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible(`p:has-text("${data.content}")`)).to.be.true;
         });
 
-        it('guest does NOT see edit/delete buttons [ 5 Points ]', async () => {
+        it('guest does NOT see edit/delete buttons [ 5 Points ]', async() => {
             await page.goto(host);
             await page.waitForTimeout(interval);
 
@@ -235,7 +236,7 @@ describe('E2E tests', function () {
 
     describe('CRUD [ 40 Points ]', () => {
         // Login user
-        beforeEach(async () => {
+        beforeEach(async() => {
             const data = mockData.users[0];
             await page.goto(host);
             await page.waitForTimeout(interval);
@@ -248,7 +249,7 @@ describe('E2E tests', function () {
             await page.waitForTimeout(interval);
         });
 
-        it('create does NOT work with empty fields [ 5 Points ]', async () => {
+        it('create does NOT work with empty fields [ 5 Points ]', async() => {
             const { post } = await createHandler(endpoints.create, { post: '' });
 
             await page.click('text=Create');
@@ -261,7 +262,7 @@ describe('E2E tests', function () {
             expect(post.isCalled).to.be.false;
         });
 
-        it('create makes correct API call for logged in user [ 10 Points ]', async () => {
+        it('create makes correct API call for logged in user [ 10 Points ]', async() => {
             const data = mockData.catalog[0];
             const { post } = await createHandler(endpoints.create, { post: data });
 
@@ -274,6 +275,7 @@ describe('E2E tests', function () {
             await page.fill('[name="content"]', data.content);
 
             const [request] = await Promise.all([post.waitForRequest(), page.click('[type="submit"]')]);
+            console.log('yes');
 
             const postData = JSON.parse(request.postData());
 
@@ -282,7 +284,7 @@ describe('E2E tests', function () {
             expect(postData.content).to.equal(data.content);
         });
 
-        it('non-author does NOT see delete and edit buttons [ 2.5 Points ]', async () => {
+        it('non-author does NOT see delete and edit buttons [ 2.5 Points ]', async() => {
             await page.click('nav >> text=Catalogue');
             await page.waitForTimeout(interval);
 
@@ -294,7 +296,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text="Edit"')).to.be.false;
         });
 
-        it('author sees delete and edit buttons [ 2.5 Points ]', async () => {
+        it('author sees delete and edit buttons [ 2.5 Points ]', async() => {
             await page.click('nav >> text=Catalogue');
             await page.waitForTimeout(interval);
 
@@ -306,7 +308,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text="Edit"')).to.be.true;
         });
 
-        it('edit should populate form with correct data [ 5 Points ]', async () => {
+        it('edit should populate form with correct data [ 5 Points ]', async() => {
             const data = mockData.catalog[0];
             await createHandler(endpoints.details(data._id), { get: data });
 
@@ -332,7 +334,7 @@ describe('E2E tests', function () {
             expect(formData.content).to.equal(data.content);
         });
 
-        it('edit does NOT work with empty fields [ 5 Points ]', async () => {
+        it('edit does NOT work with empty fields [ 5 Points ]', async() => {
             const data = mockData.catalog[0];
             const { put } = await createHandler(endpoints.details(data._id), { get: data, put: '' });
 
@@ -357,7 +359,7 @@ describe('E2E tests', function () {
             expect(put.isCalled).to.be.false;
         });
 
-        it('edit makes correct API call for logged in user [ 5 Points ]', async () => {
+        it('edit makes correct API call for logged in user [ 5 Points ]', async() => {
             const data = mockData.catalog[0];
             const { put } = await createHandler(endpoints.details(data._id), { get: data, put: '' });
 
@@ -385,7 +387,7 @@ describe('E2E tests', function () {
             expect(postData.content).to.contains(data.content + 'edit');
         });
 
-        it('delete makes correct API call for logged in user [ 5 Points ]', async () => {
+        it('delete makes correct API call for logged in user [ 5 Points ]', async() => {
             const data = mockData.catalog[0];
             const { delete: del } = await createHandler(endpoints.details(data._id), { get: data, delete: '' });
 
@@ -404,8 +406,8 @@ describe('E2E tests', function () {
         });
     });
 
-    describe('Home Page [ 15 Points ]', async () => {
-        it('all categories filled [ 5 Points ]', async () => {
+    describe('Home Page [ 15 Points ]', async() => {
+        it('all categories filled [ 5 Points ]', async() => {
             const arts = mockData.catalog;
             await page.goto(host);
             await page.waitForTimeout(interval);
@@ -418,7 +420,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text=No articles yet')).to.be.false;
         });
 
-        it('all categories empty [ 5 Points ]', async () => {
+        it('all categories empty [ 5 Points ]', async() => {
             await createHandler(endpoints.home, { get: [] });
 
             await page.goto(host);
@@ -430,7 +432,7 @@ describe('E2E tests', function () {
             expect(await page.textContent('section.recent:has-text("Python")')).to.contains('No articles yet');
         });
 
-        it('mixed content [ 5 Points ]', async () => {
+        it('mixed content [ 5 Points ]', async() => {
             const arts = mockData.catalog.slice(0, 2);
             await createHandler(endpoints.home, { get: arts });
 
@@ -444,8 +446,8 @@ describe('E2E tests', function () {
         });
     });
 
-    describe('Search Page [ 5 Points ]', async () => {
-        it('show no matches [ 2.5 Points ]', async () => {
+    describe('Search Page [ 5 Points ]', async() => {
+        it('show no matches [ 2.5 Points ]', async() => {
             await createHandler(endpoints.search('arrays'), { get: [] });
 
             await page.goto(host);
@@ -461,7 +463,7 @@ describe('E2E tests', function () {
             expect(await page.isVisible('text=No matching articles')).to.be.true;
         });
 
-        it('show results [ 2.5 Points ]', async () => {
+        it('show results [ 2.5 Points ]', async() => {
             await createHandler(endpoints.search('arrays'), { get: mockData.catalog.slice(0, 2) });
 
             await page.goto(host);
@@ -499,15 +501,15 @@ async function setupContext(context) {
     await createHandler(endpoints.details('1005'), { get: mockData.catalog[4] }, context);
 
     // Block external calls
-    await context.route(
-        (url) => url.href.slice(0, host.length) != host,
-        (route) => {
-            if (DEBUG) {
-                console.log('Preventing external call to ' + route.request().url());
-            }
-            route.abort();
-        }
-    );
+    // await context.route(
+    //     (url) => url.href.slice(0, host.length) != host,
+    //     (route) => {
+    //         if (DEBUG) {
+    //             console.log('Preventing external call to ' + route.request().url());
+    //         }
+    //         route.abort();
+    //     }
+    // );
 }
 
 /**
@@ -609,8 +611,7 @@ async function createHandler(match, handlers = {}, context) {
 }
 
 function respond(data, options = {}) {
-    options = Object.assign(
-        {
+    options = Object.assign({
             json: true,
             status: 200,
         },

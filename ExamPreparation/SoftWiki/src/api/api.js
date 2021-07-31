@@ -21,7 +21,7 @@ export async function login(email, password) {
 
     sessionStorage.setItem('userId', result._id);
     sessionStorage.setItem('email', result.email);
-    sessionStorage.setItem('authToken', result.accessToken);
+    sessionStorage.setItem('accessToken', result.accessToken);
 
     return result;
 }
@@ -31,7 +31,7 @@ export async function register(email, password) {
 
     sessionStorage.setItem('userId', result._id);
     sessionStorage.setItem('email', result.email);
-    sessionStorage.setItem('authToken', result.accessToken);
+    sessionStorage.setItem('accessToken ', result.accessToken);
 
     return result;
 }
@@ -41,7 +41,7 @@ export async function logout() {
 
     sessionStorage.removeItem('userId', result._id);
     sessionStorage.removeItem('email', result.email);
-    sessionStorage.removeItem('authToken', result.accessToken);
+    sessionStorage.removeItem('accessToken', result.accessToken);
 
 
     return result;
@@ -76,7 +76,7 @@ function getOptions(method = 'get', body) {
         headers: {},
     };
 
-    const token = sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem('accessToken');
     if (token != null) {
         options.headers['X-Authorization'] = token;
     }
