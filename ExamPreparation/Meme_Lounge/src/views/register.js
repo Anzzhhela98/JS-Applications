@@ -1,5 +1,6 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import { register } from "../api/data.js"
+import { notify } from "../notifications.js";
 
 const registerTemplate = (onSubmit) => html `
     <section id="register">
@@ -42,16 +43,19 @@ export function registerPage(context) {
         const repeatPass = form.get('repeatPass');
         const gender = form.get('gender');
 
-        if ([username, email, password, repeatPass, gender].map(Boolean).includes(false)) {
-            return alert('All fields are required!');
-        }
+        try {
+            if ([username, email, password, repeatPass, gender].map(Boolean).includes(false)) {
+                throw new Error('All fields are required!');
+            }
 
-        if (password !== repeatPass) {
-            return alert("Passwords don't match!");
+            if (password !== repeatPass) {
+                throw new Error("Passwords don't match!");
+            }
+            await register(username, email, password, gender);
+            event.target.reset();
+            context.page.redirect('/allMemes');
+        } catch (error) {
+            notify(error);
         }
-
-        await register(username, email, password, gender);
-        event.target.reset();
-        context.page.redirect('/allMemes');
     }
 }

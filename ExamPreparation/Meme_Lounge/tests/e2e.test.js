@@ -2,7 +2,7 @@ const { chromium } = require('playwright-chromium');
 const { expect } = require('chai');
 
 const host = 'http://localhost:3000'; // Application host (NOT service host - that can be anything)
-const DEBUG = false;
+const DEBUG = true;
 
 const mockData = require('./mock-data.json');
 const endpoints = {
@@ -36,7 +36,7 @@ describe('E2E tests', function() {
     if (DEBUG) {
         this.timeout(120000);
     } else {
-        this.timeout(6000);
+        this.timeout(60000);
     }
 
     before(async() => {
@@ -620,144 +620,144 @@ describe('E2E tests', function() {
         });
     });
 
-    // describe('BONUS: Notifications [ 5 Points ]', () => {
-    //     it('Login notification with invalid data', async() => {
-    //         const endpoint = '**' + endpoints.login;
-    //         let called = false;
-    //         page.route(endpoint, route => called = true);
+    describe('BONUS: Notifications [ 5 Points ]', () => {
+        it('Login notification with invalid data', async() => {
+            const endpoint = '**' + endpoints.login;
+            let called = false;
+            page.route(endpoint, route => called = true);
 
-    //         await page.goto(host);
-    //         await page.click('#button-div >> text="Login"');
+            await page.goto(host);
+            await page.click('#button-div >> text="Login"');
 
-    //         await page.waitForTimeout(300);
-    //         await page.waitForSelector('form');
+            await page.waitForTimeout(300);
+            await page.waitForSelector('form');
 
-    //         const preClickNotification = await page.isVisible('#errorBox');
-    //         expect(preClickNotification).to.be.false;
+            const preClickNotification = await page.isVisible('#errorBox');
+            expect(preClickNotification).to.be.false;
 
-    //         await page.click('[type="submit"]');
-    //         await page.waitForTimeout(300);
+            await page.click('[type="submit"]');
+            await page.waitForTimeout(300);
 
-    //         const notification = await page.isVisible('#errorBox');
-    //         expect(notification).to.be.true;
+            const notification = await page.isVisible('#errorBox');
+            expect(notification).to.be.true;
 
-    //     });
-    //     it('Register notification with invalid data', async() => {
-    //         const endpoint = '**' + endpoints.register;
-    //         let called = false;
-    //         page.route(endpoint, route => called = true);
+        });
+        it('Register notification with invalid data', async() => {
+            const endpoint = '**' + endpoints.register;
+            let called = false;
+            page.route(endpoint, route => called = true);
 
-    //         await page.goto(host);
-    //         await page.click('#button-div >> text="Register"');
+            await page.goto(host);
+            await page.click('#button-div >> text="Register"');
 
-    //         await page.waitForTimeout(300);
-    //         await page.waitForSelector('form');
+            await page.waitForTimeout(300);
+            await page.waitForSelector('form');
 
-    //         const preClickNotification = await page.isVisible('#errorBox');
-    //         expect(preClickNotification).to.be.false;
+            const preClickNotification = await page.isVisible('#errorBox');
+            expect(preClickNotification).to.be.false;
 
-    //         await page.click('[type="submit"]');
-    //         await page.waitForTimeout(300);
+            await page.click('[type="submit"]');
+            await page.waitForTimeout(300);
 
-    //         const notification = await page.isVisible('#errorBox');
-    //         expect(notification).to.be.true;
-    //     });
-    //     it('Create notification with invalid data', async() => {
-    //         // Login user
-    //         const email = 'peter@abv.bg';
-    //         const password = '123456';
-    //         const longEndpoint = '**' + endpoints.login;
+            const notification = await page.isVisible('#errorBox');
+            expect(notification).to.be.true;
+        });
+        it.only('Create notification with invalid data', async() => {
+            // Login user
+            const email = 'peter@abv.bg';
+            const password = '123456';
+            const longEndpoint = '**' + endpoints.login;
 
-    //         page.route(longEndpoint, route => route.fulfill(json({ _id: '0001', email, accessToken: 'AAAA' })));
+            page.route(longEndpoint, route => route.fulfill(json({ _id: '0001', email, accessToken: 'AAAA' })));
 
-    //         await page.goto(host);
-    //         await page.click('#button-div >> text="Login"');
+            await page.goto(host);
+            await page.click('#button-div >> text="Login"');
 
-    //         await page.waitForTimeout(300);
-    //         await page.waitForSelector('form');
+            await page.waitForTimeout(300);
+            await page.waitForSelector('form');
 
-    //         await page.fill('[name="email"]', email);
-    //         await page.fill('[name="password"]', password);
-    //         await page.waitForTimeout(300);
+            await page.fill('[name="email"]', email);
+            await page.fill('[name="password"]', password);
+            await page.waitForTimeout(300);
 
-    //         await Promise.all([
-    //             page.waitForResponse(longEndpoint),
-    //             page.click('[type="submit"]')
-    //         ]);
+            await Promise.all([
+                page.waitForResponse(longEndpoint),
+                page.click('[type="submit"]')
+            ]);
 
-    //         //Test
-    //         await page.waitForTimeout(300);
-    //         const endpoint = '**' + endpoints.details;
-    //         let called = false;
-    //         page.route(endpoint, route => called = true);
+            //Test
+            await page.waitForTimeout(300);
+            const endpoint = '**' + endpoints.details;
+            let called = false;
+            page.route(endpoint, route => called = true);
 
-    //         await page.click('nav >> text="Create Meme"');
+            await page.click('nav >> text="Create Meme"');
 
-    //         await page.waitForTimeout(300);
+            await page.waitForTimeout(300);
 
-    //         const preClickNotification = await page.isVisible('#errorBox');
-    //         expect(preClickNotification).to.be.false;
+            const preClickNotification = await page.isVisible('#errorBox');
+            expect(preClickNotification).to.be.false;
 
-    //         await page.click('[type="submit"]');
-    //         await page.waitForTimeout(300);
+            await page.click('[type="submit"]');
+            await page.waitForTimeout(300);
 
-    //         const notification = await page.isVisible('#errorBox');
-    //         expect(notification).to.be.true;
-    //     });
-    //     it('Edit notification with invalid data', async() => {
-    //         // Login user
-    //         const email = 'peter@abv.bg';
-    //         const password = '123456';
-    //         const longEndpoint = '**' + endpoints.login;
+            const notification = await page.isVisible('#errorBox');
+            expect(notification).to.be.true;
+        });
+        it('Edit notification with invalid data', async() => {
+            // Login user
+            const email = 'peter@abv.bg';
+            const password = '123456';
+            const longEndpoint = '**' + endpoints.login;
 
-    //         page.route(longEndpoint, route => route.fulfill(json({ _id: '0001', email, accessToken: 'AAAA' })));
+            page.route(longEndpoint, route => route.fulfill(json({ _id: '0001', email, accessToken: 'AAAA' })));
 
-    //         await page.goto(host);
-    //         await page.click('#button-div >> text="Login"');
+            await page.goto(host);
+            await page.click('#button-div >> text="Login"');
 
-    //         await page.waitForTimeout(300);
-    //         await page.waitForSelector('form');
+            await page.waitForTimeout(300);
+            await page.waitForSelector('form');
 
-    //         await page.fill('[name="email"]', email);
-    //         await page.fill('[name="password"]', password);
+            await page.fill('[name="email"]', email);
+            await page.fill('[name="password"]', password);
 
-    //         await page.waitForTimeout(300);
+            await page.waitForTimeout(300);
 
-    //         await Promise.all([
-    //             page.waitForResponse(longEndpoint),
-    //             page.click('[type="submit"]')
-    //         ]);
+            await Promise.all([
+                page.waitForResponse(longEndpoint),
+                page.click('[type="submit"]')
+            ]);
 
-    //         //Test
-    //         const endpoint = endpoints.details;
-    //         await page.waitForTimeout(300);
+            //Test
+            const endpoint = endpoints.details;
+            await page.waitForTimeout(300);
 
-    //         await page.click('text=All Memes');
+            await page.click('text=All Memes');
 
-    //         await page.waitForTimeout(300);
-    //         await page.route('**' + endpoints.details + '*', route => route.fulfill(json(mockData[5])));
+            await page.waitForTimeout(300);
+            await page.route('**' + endpoints.details + '*', route => route.fulfill(json(mockData[5])));
 
-    //         await page.click('.meme:has-text("My New Meme") >> text="Details"');
+            await page.click('.meme:has-text("My New Meme") >> text="Details"');
 
-    //         await page.waitForTimeout(300);
+            await page.waitForTimeout(300);
 
-    //         await page.click('text="Edit"');
-    //         await page.waitForTimeout(300);
+            await page.click('text="Edit"');
+            await page.waitForTimeout(300);
 
-    //         const preClickNotification = await page.isVisible('#errorBox');
-    //         expect(preClickNotification).to.be.false;
+            const preClickNotification = await page.isVisible('#errorBox');
+            expect(preClickNotification).to.be.false;
 
-    //         await page.fill('[name="title"]', '');
-    //         await page.fill('[name="description"]', '');
-    //         await page.fill('[name="imageUrl"]', '');
-    //         await page.waitForTimeout(300);
+            await page.fill('[name="title"]', '');
+            await page.fill('[name="description"]', '');
+            await page.fill('[name="imageUrl"]', '');
+            await page.waitForTimeout(300);
 
-    //         page.click('[type="submit"]');
-    //         await page.waitForTimeout(300);
+            page.click('[type="submit"]');
+            await page.waitForTimeout(300);
 
-    //         const notification = await page.isVisible('#errorBox');
-    //         expect(notification).to.be.true;
-    //     });
-    // });
+            const notification = await page.isVisible('#errorBox');
+            expect(notification).to.be.true;
+        });
+    });
 
 });
